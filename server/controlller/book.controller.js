@@ -13,14 +13,14 @@ const addBook = async (req, res) => {
 		});
 	}
 
-	const { title, description, discount, coverImage, Price } = req.body;
+	const { title, description, discount, price } = req.body;
 	// create a record in db
 	const book = await create({
 		title,
 		description,
 		discount,
-		coverImage,
-		Price,
+		coverImage: req.file.path,
+		price,
 	});
 	if (book.error) {
 		res.status(500).json({
