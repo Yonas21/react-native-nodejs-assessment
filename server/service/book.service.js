@@ -10,9 +10,11 @@ exports.create = async (data) => {
 	}
 };
 
-exports.readAll = async () => {
+exports.readAll = async (page, limit) => {
 	try {
-		const books = await Book.find({});
+		const books = await Book.find()
+			.limit(limit * 1)
+			.skip((page - 1) * 10);
 		if (!books) throw new Error("Book not found");
 		return { error: null, data: books };
 	} catch (error) {

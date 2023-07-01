@@ -5,6 +5,7 @@ const {
 	update,
 	deleteAll,
 } = require("../service/book.service");
+const Book = require("../entity/book.schema");
 
 const addBook = async (req, res) => {
 	if (!Object.keys(req.body).length) {
@@ -33,7 +34,10 @@ const addBook = async (req, res) => {
 };
 
 const getAllBooks = async (req, res) => {
-	const books = await readAll();
+	const { page = 1, limit = 10 } = req.query;
+	console.log("req quert", req.query);
+	const books = await readAll(page, limit);
+	const count = await Book.countDocuments();
 	if (books.error) {
 		res.status(500).json({
 			message: error.message,
@@ -43,6 +47,8 @@ const getAllBooks = async (req, res) => {
 	res.status(200).json({
 		message: "success",
 		books: books.data,
+		totalPages: Math.ceil(count / limit),
+		currentPage: page,
 	});
 };
 
