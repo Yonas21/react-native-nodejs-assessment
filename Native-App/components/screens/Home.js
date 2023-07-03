@@ -9,6 +9,8 @@ import {
 	RefreshControl,
 } from "react-native";
 import { COLOURS } from "../database/Database";
+import publicIP from "react-native-public-ip";
+import { NetworkInfo } from "react-native-network-info";
 
 const Home = ({ navigation }) => {
 	const [books, setBooks] = useState([]);
@@ -22,7 +24,6 @@ const Home = ({ navigation }) => {
 		getBooks();
 		console.log("books", books);
 	}, []);
-
 	//get data from DB
 
 	const onRefresh = async () => {
@@ -30,7 +31,7 @@ const Home = ({ navigation }) => {
 		setPage(1);
 		setHasMore(true);
 		fetch(
-			`http://127.0.0.1:4000/books/getBooks?page=${page}&limit=${limit}`
+			`http://192.168.0.197:4000/books/getBooks?page=${page}&limit=${limit}`
 		)
 			.then((res) => res.json())
 			.then((data) => {
@@ -49,7 +50,7 @@ const Home = ({ navigation }) => {
 
 		setIsFetching(true);
 		fetch(
-			`http://127.0.0.1:4000/books/getBooks?page=${page}&limit=${limit}`
+			`http://192.168.0.197:4000/books/getBooks?page=${page}&limit=${limit}`
 		)
 			.then((res) => res.json())
 			.then((data) => {

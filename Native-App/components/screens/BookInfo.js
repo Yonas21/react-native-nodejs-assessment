@@ -39,7 +39,7 @@ const ProductInfo = ({ route, navigation }) => {
 	//get product data by productID
 
 	const getBookDetail = (id) => {
-		fetch(`http://127.0.0.1:4000/books/getBooks/${id}`)
+		fetch(`http://192.168.0.197:4000/books/getBooks/${id}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setBookDetail(data?.book);
